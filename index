@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sailing Sønderborg — Price Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #1a1f2e; color: #e8e4dc; font-family: 'DM Sans', sans-serif; min-height: 100vh; padding: 1.5rem 1rem; }
+.container { max-width: 780px; margin: 0 auto; }
+
+/* HEADER */
+.ss-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 0.5px solid rgba(255,255,255,0.12); flex-wrap: wrap; }
+.ss-anchor { width: 40px; height: 40px; flex-shrink: 0; }
+.ss-header-title { flex: 1; min-width: 120px; }
+.ss-header h1 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; letter-spacing: -0.3px; color: #f0ece4; }
+.ss-header p { font-size: 13px; color: #8a8880; margin-top: 2px; }
+.ss-header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
+.currency-switch { display: flex; background: rgba(255,255,255,0.06); border-radius: 10px; padding: 3px; border: 0.5px solid rgba(255,255,255,0.12); }
+.cur-btn { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 6px 14px; border: none; background: transparent; cursor: pointer; border-radius: 8px; color: #8a8880; transition: all 0.15s; }
+.cur-btn.active { background: rgba(255,255,255,0.12); color: #f0ece4; border: 0.5px solid rgba(255,255,255,0.2); }
+.rate-label { font-size: 11px; color: #5a5855; }
+
+/* TABS */
+.ss-tabs { display: flex; gap: 8px; margin-bottom: 1.5rem; }
+.ss-tab { flex: 1; padding: 10px 8px; font-size: 13px; font-weight: 400; font-family: 'DM Sans', sans-serif; background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.12); border-radius: 10px; cursor: pointer; color: #a0a09a; transition: all 0.15s; }
+.ss-tab.active { background: rgba(255,255,255,0.1); color: #f0ece4; border-color: rgba(255,255,255,0.22); }
+.ss-tab:hover:not(.active) { background: rgba(255,255,255,0.07); color: #d0ccc4; }
+
+/* CARDS — responsive: 3 columns desktop, 1 column mobile */
+.section-label { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #5a5855; margin-bottom: 12px; }
+.service-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.25rem; }
+.service-card { background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 14px; cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+.service-card:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+.service-card.selected { border: 1.5px solid #3a7fd4; background: rgba(58,127,212,0.1); }
+.service-card .badge { display: inline-block; font-size: 10px; font-weight: 500; padding: 3px 9px; border-radius: 20px; background: rgba(58,127,212,0.2); color: #7ab3e8; margin-bottom: 8px; }
+.service-card .badge.green { background: rgba(15,110,86,0.25); color: #5ecaa5; }
+.service-card h3 { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 500; margin-bottom: 3px; color: #f0ece4; }
+.service-card .duration { font-size: 12px; color: #7a7870; margin-bottom: 10px; }
+.service-card .prices { border-top: 0.5px solid rgba(255,255,255,0.08); padding-top: 10px; }
+.service-card .price-row { display: flex; justify-content: space-between; font-size: 12px; color: #8a8880; margin-bottom: 4px; gap: 6px; }
+.service-card .price-row span:last-child { font-weight: 500; color: #d8d4cc; white-space: nowrap; }
+
+/* CONFIG */
+.config-section { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 1rem 1.25rem; margin-bottom: 1.25rem; }
+.config-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.config-row:last-child { margin-bottom: 0; }
+.config-label { font-size: 13px; color: #8a8880; min-width: 100px; }
+.config-row input[type=range] { flex: 1; -webkit-appearance: none; height: 4px; background: rgba(255,255,255,0.12); border-radius: 4px; outline: none; min-width: 0; }
+.config-row input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #f0ece4; cursor: pointer; }
+.config-row .val { font-size: 14px; font-weight: 500; color: #f0ece4; min-width: 24px; text-align: right; }
+.toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.toggle { position: relative; width: 42px; height: 24px; flex-shrink: 0; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.slider-t { position: absolute; inset: 0; background: rgba(255,255,255,0.15); border-radius: 24px; cursor: pointer; transition: background 0.2s; }
+.slider-t::before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px; background: #ccc; border-radius: 50%; transition: transform 0.2s; }
+.toggle input:checked + .slider-t { background: #3a7fd4; }
+.toggle input:checked + .slider-t::before { transform: translateX(18px); background: white; }
+
+/* RESULT */
+.result-card { background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 1.25rem; }
+.result-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; gap: 12px; }
+.result-service { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 500; color: #f0ece4; }
+.result-mode { font-size: 12px; color: #7a7870; margin-top: 4px; }
+.result-price { flex-shrink: 0; text-align: right; }
+.result-price .amount { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 600; color: #7ab3e8; line-height: 1; }
+.result-price .currency { font-size: 11px; color: #5a5855; margin-top: 3px; }
+.breakdown { border-top: 0.5px solid rgba(255,255,255,0.08); padding-top: 12px; }
+.breakdown-row { display: flex; justify-content: space-between; font-size: 13px; color: #7a7870; padding: 4px 0; gap: 12px; }
+.breakdown-row span:last-child { text-align: right; white-space: nowrap; }
+.breakdown-row.discount { color: #5ecaa5; }
+.breakdown-row.total { font-weight: 500; font-size: 14px; color: #f0ece4; border-top: 0.5px solid rgba(255,255,255,0.08); margin-top: 6px; padding-top: 8px; }
+.no-selection { text-align: center; padding: 1.5rem 1rem; color: #4a4845; font-size: 14px; }
+.season-note { font-size: 11px; color: #4a4845; margin-top: 10px; text-align: center; }
+
+/* ── MOBILE ───────────────────────────────────────────────────── */
+@media (max-width: 540px) {
+  body { padding: 1rem 0.75rem; }
+
+  .ss-header h1 { font-size: 18px; }
+  .ss-header { gap: 10px; }
+  .ss-anchor { width: 34px; height: 34px; }
+
+  /* Stack currency switch below title on very small screens */
+  .ss-header-right { width: 100%; flex-direction: row; justify-content: space-between; align-items: center; }
+
+  /* Tabs: smaller text */
+  .ss-tab { font-size: 12px; padding: 9px 4px; }
+
+  /* Cards: single column on mobile */
+  .service-cards { grid-template-columns: 1fr; gap: 8px; }
+  .service-card { padding: 12px 14px; }
+  /* On mobile show price rows inline compactly */
+  .service-card .prices { display: flex; gap: 16px; padding-top: 8px; }
+  .service-card .price-row { flex-direction: column; gap: 1px; flex: 1; }
+  .service-card .price-row span:first-child { font-size: 10px; color: #5a5855; }
+  .service-card .price-row span:last-child { font-size: 13px; }
+
+  /* Config */
+  .config-label { min-width: 80px; font-size: 12px; }
+
+  /* Result */
+  .result-top { flex-direction: column; gap: 8px; }
+  .result-price { text-align: left; }
+  .result-price .amount { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="ss-header">
+    <svg class="ss-anchor" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="22" cy="22" r="21.5" stroke="#3a7fd4" stroke-width="1"/>
+      <path d="M22 9v26M14 18l8-9 8 9" stroke="#3a7fd4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M14 31c0 0 2 5 8 5s8-5 8-5" stroke="#3a7fd4" stroke-width="1.8" stroke-linecap="round"/>
+      <circle cx="22" cy="15" r="2.5" fill="#3a7fd4"/>
+    </svg>
+    <div class="ss-header-title">
+      <h1>Sailing Sønderborg</h1>
+      <p>Price calculator</p>
+    </div>
+    <div class="ss-header-right">
+      <div class="currency-switch">
+        <button class="cur-btn active" id="btn-dkk" onclick="setCurrency('DKK')">kr DKK</button>
+        <button class="cur-btn" id="btn-eur" onclick="setCurrency('EUR')">€ EUR</button>
+      </div>
+      <span class="rate-label">1 EUR ≈ 7.46 DKK</span>
+    </div>
+  </div>
+
+  <div class="ss-tabs">
+    <button class="ss-tab active" onclick="switchTab('experiences')">Experiences</button>
+    <button class="ss-tab" onclick="switchTab('courses')">Courses</button>
+    <button class="ss-tab" onclick="switchTab('corporate')">Corporate</button>
+  </div>
+
+  <div id="tab-experiences">
+    <p class="section-label">Choose an experience</p>
+    <div class="service-cards" id="exp-cards"></div>
+    <div class="config-section">
+      <div class="config-row">
+        <span class="config-label">Persons</span>
+        <input type="range" id="exp-persons" min="1" max="6" value="1" step="1" oninput="updateExp()">
+        <span class="val" id="exp-persons-val">1</span>
+      </div>
+      <div class="toggle-row">
+        <span class="config-label">Book as private group</span>
+        <label class="toggle"><input type="checkbox" id="exp-group" onchange="updateExp()"><span class="slider-t"></span></label>
+      </div>
+    </div>
+    <div id="exp-result"></div>
+    <p class="season-note">Off-season pricing (Sep–May) may apply — contact us for details</p>
+  </div>
+
+  <div id="tab-courses" style="display:none">
+    <p class="section-label">Choose a course</p>
+    <div class="service-cards" id="course-cards"></div>
+    <div class="config-section">
+      <div class="config-row">
+        <span class="config-label">Persons</span>
+        <input type="range" id="crs-persons" min="1" max="4" value="1" step="1" oninput="updateCourse()">
+        <span class="val" id="crs-persons-val">1</span>
+      </div>
+      <div class="toggle-row">
+        <span class="config-label">Private group (max 4)</span>
+        <label class="toggle"><input type="checkbox" id="crs-group" onchange="updateCourse()"><span class="slider-t"></span></label>
+      </div>
+    </div>
+    <div id="crs-result"></div>
+  </div>
+
+  <div id="tab-corporate" style="display:none">
+    <p class="section-label">Team building session</p>
+    <div class="config-section">
+      <div class="config-row">
+        <span class="config-label">Persons</span>
+        <input type="range" id="corp-persons" min="4" max="20" value="8" step="1" oninput="updateCorp()">
+        <span class="val" id="corp-persons-val">8</span>
+      </div>
+      <div class="config-row">
+        <span class="config-label">Sessions</span>
+        <input type="range" id="corp-sessions" min="1" max="4" value="1" step="1" oninput="updateCorp()">
+        <span class="val" id="corp-sessions-val">1</span>
+      </div>
+      <div class="toggle-row">
+        <span class="config-label">Off-season −10%</span>
+        <label class="toggle"><input type="checkbox" id="corp-season" onchange="updateCorp()"><span class="slider-t"></span></label>
+      </div>
+    </div>
+    <div id="corp-result"></div>
+    <p class="season-note">Off-season: September through May (excl. June–August)</p>
+  </div>
+</div>
+
+<script>
+const EUR_RATE = 7.46;
+let currency = 'DKK';
+const experiences = [
+  {id:0,name:'Quick Taster',duration:'1.5 hours',perPerson:375,flatGroup:1995},
+  {id:1,name:'Half Day',duration:'4 hours',perPerson:950,flatGroup:4950},
+  {id:2,name:'Premium Full Day',duration:'7.5 hours',perPerson:1695,flatGroup:8950},
+];
+const courses = [
+  {id:0,name:'Intro to Sailing',duration:'½ day',perPerson:1250,flatGroup:4500},
+  {id:1,name:'Intensive Weekend',duration:'2 days',perPerson:3900,flatGroup:14000},
+  {id:2,name:'Seasoned Sailor',duration:'4 days',perPerson:5500,flatGroup:25000},
+];
+const CORP = 950;
+let selExp=null, selCourse=null;
+
+function convert(dkk){return currency==='EUR'?Math.round(dkk/EUR_RATE):dkk;}
+function fmt(dkk){const v=convert(dkk);return currency==='EUR'?'€'+v.toLocaleString('de-DE'):v.toLocaleString('da-DK')+' kr';}
+
+function setCurrency(cur){
+  currency=cur;
+  document.getElementById('btn-dkk').classList.toggle('active',cur==='DKK');
+  document.getElementById('btn-eur').classList.toggle('active',cur==='EUR');
+  renderExpCards();renderCourseCards();updateExp();updateCourse();updateCorp();
+}
+
+function renderExpCards(){
+  document.getElementById('exp-cards').innerHTML=experiences.map(e=>`
+    <div class="service-card ${selExp===e.id?'selected':''}" onclick="selectExp(${e.id})">
+      <span class="badge">Experience</span>
+      <h3>${e.name}</h3><p class="duration">${e.duration}</p>
+      <div class="prices">
+        <div class="price-row"><span>Per person</span><span>${fmt(e.perPerson)}</span></div>
+        <div class="price-row"><span>Group (max 6)</span><span>${fmt(e.flatGroup)}</span></div>
+      </div></div>`).join('');
+}
+
+function renderCourseCards(){
+  document.getElementById('course-cards').innerHTML=courses.map(e=>`
+    <div class="service-card ${selCourse===e.id?'selected':''}" onclick="selectCourse(${e.id})">
+      <span class="badge green">Course</span>
+      <h3>${e.name}</h3><p class="duration">${e.duration}</p>
+      <div class="prices">
+        <div class="price-row"><span>Per person</span><span>${fmt(e.perPerson)}</span></div>
+        <div class="price-row"><span>Private (max 4)</span><span>${fmt(e.flatGroup)}</span></div>
+      </div></div>`).join('');
+}
+
+function selectExp(id){selExp=id;renderExpCards();updateExp();}
+function selectCourse(id){selCourse=id;renderCourseCards();updateCourse();}
+
+function resultHTML(name,mode,total,currLabel,breakdown){
+  return `<div class="result-card"><div class="result-top"><div><div class="result-service">${name}</div><div class="result-mode">${mode}</div></div><div class="result-price"><div class="amount">${total}</div><div class="currency">${currLabel}</div></div></div><div class="breakdown">${breakdown}<div class="breakdown-row total"><span>Total</span><span>${total}</span></div></div></div>`;
+}
+
+function updateExp(){
+  const p=+document.getElementById('exp-persons').value;
+  const grp=document.getElementById('exp-group').checked;
+  document.getElementById('exp-persons-val').textContent=p;
+  const r=document.getElementById('exp-result');
+  if(selExp===null){r.innerHTML='<div class="no-selection">Select an experience above to see pricing</div>';return;}
+  const e=experiences[selExp];
+  let total,mode,bd;
+  if(grp){total=e.flatGroup;mode='Flat rate — private group (up to 6)';bd=`<div class="breakdown-row"><span>Flat group rate</span><span>${fmt(e.flatGroup)}</span></div>`;}
+  else{total=e.perPerson*p;mode=`${p} person${p>1?'s':''} × ${fmt(e.perPerson)}`;bd=`<div class="breakdown-row"><span>Per person</span><span>${fmt(e.perPerson)}</span></div><div class="breakdown-row"><span>Persons</span><span>${p}</span></div>`;}
+  r.innerHTML=resultHTML(e.name,mode,fmt(total),currency==='EUR'?'Euros':'Danish Krone',bd);
+}
+
+function updateCourse(){
+  const p=+document.getElementById('crs-persons').value;
+  const grp=document.getElementById('crs-group').checked;
+  document.getElementById('crs-persons-val').textContent=p;
+  const r=document.getElementById('crs-result');
+  if(selCourse===null){r.innerHTML='<div class="no-selection">Select a course above to see pricing</div>';return;}
+  const e=courses[selCourse];
+  let total,mode,bd;
+  if(grp){total=e.flatGroup;mode='Private group (up to 4)';bd=`<div class="breakdown-row"><span>Private group rate</span><span>${fmt(e.flatGroup)}</span></div>`;}
+  else{total=e.perPerson*p;mode=`${p} person${p>1?'s':''} × ${fmt(e.perPerson)}`;bd=`<div class="breakdown-row"><span>Per person</span><span>${fmt(e.perPerson)}</span></div><div class="breakdown-row"><span>Persons</span><span>${p}</span></div>`;}
+  r.innerHTML=resultHTML(e.name,mode,fmt(total),currency==='EUR'?'Euros':'Danish Krone',bd);
+}
+
+function updateCorp(){
+  const p=+document.getElementById('corp-persons').value;
+  const s=+document.getElementById('corp-sessions').value;
+  const off=document.getElementById('corp-season').checked;
+  document.getElementById('corp-persons-val').textContent=p;
+  document.getElementById('corp-sessions-val').textContent=s;
+  const boats=Math.ceil(p/6);
+  const base=boats*s*CORP;
+  const disc=off?Math.round(base*0.1):0;
+  const total=base-disc;
+  const bd=`<div class="breakdown-row"><span>Boats (max 6/boat)</span><span>${boats}</span></div><div class="breakdown-row"><span>Sessions</span><span>${s}</span></div><div class="breakdown-row"><span>Rate per session/boat</span><span>${fmt(CORP)}</span></div><div class="breakdown-row"><span>Subtotal</span><span>${fmt(base)}</span></div>${off?`<div class="breakdown-row discount"><span>Off-season −10%</span><span>−${fmt(disc)}</span></div>`:''}`;
+  document.getElementById('corp-result').innerHTML=resultHTML('Corporate Team Building',`${p} people · ${boats} boat${boats>1?'s':''} · ${s} session${s>1?'s':''}`,fmt(total),currency==='EUR'?'Euros':'Danish Krone',bd);
+}
+
+function switchTab(tab){
+  ['experiences','courses','corporate'].forEach(t=>{document.getElementById('tab-'+t).style.display=t===tab?'':'none';});
+  document.querySelectorAll('.ss-tab').forEach((btn,i)=>{btn.classList.toggle('active',['experiences','courses','corporate'][i]===tab);});
+}
+
+renderExpCards();renderCourseCards();updateExp();updateCourse();updateCorp();
+</script>
+</body>
+</html>
