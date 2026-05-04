@@ -27,13 +27,13 @@ body{background:#1a1f2e;color:#e8e4dc;font-family:'DM Sans',sans-serif;min-heigh
 .service-card{background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:14px;padding:14px;cursor:pointer;transition:border-color 0.15s,background 0.15s}
 .service-card:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.2)}
 .service-card.selected{border:1.5px solid #3a7fd4;background:rgba(58,127,212,0.1)}
-.service-card .badge{display:inline-block;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;background:rgba(58,127,212,0.2);color:#7ab3e8;margin-bottom:8px}
-.service-card .badge.green{background:rgba(15,110,86,0.25);color:#5ecaa5}
+.badge{display:inline-block;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;background:rgba(58,127,212,0.2);color:#7ab3e8;margin-bottom:8px}
+.badge.green{background:rgba(15,110,86,0.25);color:#5ecaa5}
 .service-card h3{font-family:'Playfair Display',serif;font-size:14px;font-weight:500;margin-bottom:3px;color:#f0ece4}
-.service-card .duration{font-size:12px;color:#7a7870;margin-bottom:10px}
-.service-card .prices{border-top:0.5px solid rgba(255,255,255,0.08);padding-top:10px}
-.service-card .price-row{display:flex;justify-content:space-between;font-size:12px;color:#8a8880;margin-bottom:4px;gap:6px}
-.service-card .price-row span:last-child{font-weight:500;color:#d8d4cc;white-space:nowrap}
+.service-card .dur{font-size:12px;color:#7a7870;margin-bottom:10px}
+.prices{border-top:0.5px solid rgba(255,255,255,0.08);padding-top:10px}
+.price-row{display:flex;justify-content:space-between;font-size:12px;color:#8a8880;margin-bottom:4px;gap:6px}
+.price-row span:last-child{font-weight:500;color:#d8d4cc;white-space:nowrap}
 .config-section{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:1rem 1.25rem;margin-bottom:1.25rem}
 .config-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .config-row:last-child{margin-bottom:0}
@@ -46,33 +46,33 @@ body{background:#1a1f2e;color:#e8e4dc;font-family:'DM Sans',sans-serif;min-heigh
 .toggle input{opacity:0;width:0;height:0}
 .slider-t{position:absolute;inset:0;background:rgba(255,255,255,0.15);border-radius:24px;cursor:pointer;transition:background 0.2s}
 .slider-t::before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:#ccc;border-radius:50%;transition:transform 0.2s}
-.toggle input:checked+.slider-t{background:#3a7fd4}
-.toggle input:checked+.slider-t::before{transform:translateX(18px);background:white}
+.toggle input:checked + .slider-t{background:#3a7fd4}
+.toggle input:checked + .slider-t::before{transform:translateX(18px);background:white}
 .result-card{background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:14px;padding:1.25rem}
 .result-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;gap:12px}
 .result-service{font-family:'Playfair Display',serif;font-size:17px;font-weight:500;color:#f0ece4}
 .result-mode{font-size:12px;color:#7a7870;margin-top:4px}
 .result-price{flex-shrink:0;text-align:right}
 .result-price .amount{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:#7ab3e8;line-height:1}
-.result-price .currency{font-size:11px;color:#5a5855;margin-top:3px}
+.result-price .curr{font-size:11px;color:#5a5855;margin-top:3px}
 .breakdown{border-top:0.5px solid rgba(255,255,255,0.08);padding-top:12px}
-.breakdown-row{display:flex;justify-content:space-between;font-size:13px;color:#7a7870;padding:4px 0;gap:12px}
-.breakdown-row span:last-child{text-align:right;white-space:nowrap}
-.breakdown-row.total{font-weight:500;font-size:14px;color:#f0ece4;border-top:0.5px solid rgba(255,255,255,0.08);margin-top:6px;padding-top:8px}
-.no-selection{text-align:center;padding:1.5rem 1rem;color:#4a4845;font-size:14px}
-.season-note{font-size:11px;color:#4a4845;margin-top:10px;text-align:center}
+.brow{display:flex;justify-content:space-between;font-size:13px;color:#7a7870;padding:4px 0;gap:12px}
+.brow span:last-child{text-align:right;white-space:nowrap}
+.brow.total{font-weight:500;font-size:14px;color:#f0ece4;border-top:0.5px solid rgba(255,255,255,0.08);margin-top:6px;padding-top:8px}
+.no-sel{text-align:center;padding:1.5rem 1rem;color:#4a4845;font-size:14px}
+.footnote{font-size:11px;color:#4a4845;margin-top:10px;text-align:center}
 @media(max-width:540px){
-body{padding:1rem 0.75rem}
-.ss-header h1{font-size:18px}
-.ss-header-right{width:100%;flex-direction:row;justify-content:space-between;align-items:center}
-.ss-tab{font-size:12px;padding:9px 4px}
-.service-cards{grid-template-columns:1fr;gap:8px}
-.service-card .prices{display:flex;gap:16px;padding-top:8px}
-.service-card .price-row{flex-direction:column;gap:1px;flex:1}
-.service-card .price-row span:first-child{font-size:10px;color:#5a5855}
-.config-label{min-width:80px;font-size:12px}
-.result-top{flex-direction:column;gap:8px}
-.result-price{text-align:left}
+  body{padding:1rem 0.75rem}
+  .ss-header h1{font-size:18px}
+  .ss-header-right{width:100%;flex-direction:row;justify-content:space-between;align-items:center}
+  .ss-tab{font-size:12px;padding:9px 4px}
+  .service-cards{grid-template-columns:1fr;gap:8px}
+  .prices{display:flex;gap:16px;padding-top:8px}
+  .price-row{flex-direction:column;gap:1px;flex:1}
+  .price-row span:first-child{font-size:10px;color:#5a5855}
+  .config-label{min-width:80px;font-size:12px}
+  .result-top{flex-direction:column;gap:8px}
+  .result-price{text-align:left}
 }
 </style>
 </head>
@@ -97,128 +97,249 @@ body{padding:1rem 0.75rem}
       <span class="rate-label">1 EUR ≈ 7.46 DKK</span>
     </div>
   </div>
+
   <div class="ss-tabs">
-    <button class="ss-tab active" onclick="switchTab('experiences')">Sailing tours</button>
-    <button class="ss-tab" onclick="switchTab('courses')">Sailing Courses</button>
-    <button class="ss-tab" onclick="switchTab('corporate')">Corporate</button>
+    <button class="ss-tab active" onclick="switchTab('exp')">Sailing Tours</button>
+    <button class="ss-tab" onclick="switchTab('crs')">Sailing Courses</button>
+    <button class="ss-tab" onclick="switchTab('corp')">Corporate</button>
   </div>
 
-  <div id="tab-experiences">
+  <!-- EXPERIENCES -->
+  <div id="tab-exp">
     <p class="section-label">Choose an experience</p>
     <div class="service-cards" id="exp-cards"></div>
     <div class="config-section">
-      <div class="config-row"><span class="config-label">Persons</span><input type="range" id="exp-persons" min="1" max="6" value="1" step="1" oninput="updateExp()"><span class="val" id="exp-persons-val">1</span></div>
-      <div class="config-row"><span class="config-label">Days</span><input type="range" id="exp-days" min="1" max="7" value="1" step="1" oninput="updateExp()"><span class="val" id="exp-days-val">1</span></div>
-      <div class="toggle-row"><span class="config-label">Private group</span><label class="toggle"><input type="checkbox" id="exp-group" onchange="updateExp()"><span class="slider-t"></span></label></div>
+      <div class="config-row">
+        <span class="config-label">Persons</span>
+        <input type="range" id="exp-p" min="1" max="6" value="1" step="1" oninput="updateExp()">
+        <span class="val" id="exp-p-val">1</span>
+      </div>
+      <div class="config-row">
+        <span class="config-label">Days</span>
+        <input type="range" id="exp-d" min="1" max="7" value="1" step="1" oninput="updateExp()">
+        <span class="val" id="exp-d-val">1</span>
+      </div>
+      <div class="toggle-row">
+        <span class="config-label">Private group</span>
+        <label class="toggle"><input type="checkbox" id="exp-grp" onchange="updateExp()"><span class="slider-t"></span></label>
+      </div>
     </div>
     <div id="exp-result"></div>
-    <p class="season-note">Off-season pricing (Sep–May) may apply — contact us for details</p>
+    <p class="footnote">Off-season pricing (Sep–May) may apply — contact us for details</p>
   </div>
 
-  <div id="tab-courses" style="display:none">
+  <!-- COURSES -->
+  <div id="tab-crs" style="display:none">
     <p class="section-label">Choose a course</p>
-    <div class="service-cards" id="course-cards"></div>
+    <div class="service-cards" id="crs-cards"></div>
     <div class="config-section">
-      <div class="config-row"><span class="config-label">Persons</span><input type="range" id="crs-persons" min="1" max="4" value="1" step="1" oninput="updateCourse()"><span class="val" id="crs-persons-val">1</span></div>
-      <div class="config-row"><span class="config-label">Days</span><input type="range" id="crs-days" min="1" max="7" value="1" step="1" oninput="updateCourse()"><span class="val" id="crs-days-val">1</span></div>
-      <div class="toggle-row"><span class="config-label">Private group</span><label class="toggle"><input type="checkbox" id="crs-group" onchange="updateCourse()"><span class="slider-t"></span></label></div>
+      <div class="config-row">
+        <span class="config-label">Persons</span>
+        <input type="range" id="crs-p" min="1" max="4" value="1" step="1" oninput="updateCrs()">
+        <span class="val" id="crs-p-val">1</span>
+      </div>
+      <div class="config-row">
+        <span class="config-label">Days</span>
+        <input type="range" id="crs-d" min="1" max="7" value="1" step="1" oninput="updateCrs()">
+        <span class="val" id="crs-d-val">1</span>
+      </div>
+      <div class="toggle-row">
+        <span class="config-label">Private group</span>
+        <label class="toggle"><input type="checkbox" id="crs-grp" onchange="updateCrs()"><span class="slider-t"></span></label>
+      </div>
     </div>
     <div id="crs-result"></div>
   </div>
 
-  <div id="tab-corporate" style="display:none">
+  <!-- CORPORATE -->
+  <div id="tab-corp" style="display:none">
     <p class="section-label">Corporate team building</p>
     <div class="config-section">
-      <div class="config-row"><span class="config-label">Persons</span><input type="range" id="corp-persons" min="2" max="7" value="2" step="1" oninput="updateCorp()"><span class="val" id="corp-persons-val">2</span></div>
-      <div class="config-row"><span class="config-label">Days</span><input type="range" id="corp-days" min="1" max="7" value="1" step="1" oninput="updateCorp()"><span class="val" id="corp-days-val">1</span></div>
+      <div class="config-row">
+        <span class="config-label">Persons</span>
+        <input type="range" id="corp-p" min="4" max="20" value="4" step="1" oninput="updateCorp()">
+        <span class="val" id="corp-p-val">4</span>
+      </div>
+      <div class="config-row">
+        <span class="config-label">Days</span>
+        <input type="range" id="corp-d" min="1" max="7" value="1" step="1" oninput="updateCorp()">
+        <span class="val" id="corp-d-val">1</span>
+      </div>
     </div>
     <div id="corp-result"></div>
-    <p class="season-note">Based on Half Day private group rate · contact us to tailor your event</p>
+    <p class="footnote">Based on Half Day private group rate · contact us to tailor your event</p>
   </div>
 </div>
+
 <script>
-const EUR_RATE=7.46;
-let currency='DKK';
-const experiences=[{"name":"Quick Tour","duration":"2 hours","minP":1,"maxP":6,"minPrice":925,"perPerson":475,"flatGroup":2375},{"name":"Half Day","duration":"4 hours","minP":1,"maxP":6,"minPrice":1250,"perPerson":950,"flatGroup":4950},{"name":"Full Day","duration":"8 hours","minP":1,"maxP":6,"minPrice":2395,"perPerson":1695,"flatGroup":8950}];
-const courses=[{"name":"Intro to Sailing","duration":"½ day","minP":1,"maxP":4,"minPrice":1250,"perPerson":1250,"flatGroup":6500},{"name":"Intensive Weekend","duration":"2 days","minP":1,"maxP":4,"minPrice":4900,"perPerson":3900,"flatGroup":19500},{"name":"Seasoned Sailor","duration":"4 days","minP":1,"maxP":4,"minPrice":6900,"perPerson":5500,"flatGroup":27500}];
-let selExp=null,selCourse=null;
+var EUR_RATE = 7.46;
+var currency = 'DKK';
 
-function convert(d){return currency==='EUR'?Math.round(d/EUR_RATE):d;}
-function fmt(d){const v=convert(d);return currency==='EUR'?'€'+v.toLocaleString('de-DE'):v.toLocaleString('da-DK')+' kr';}
-function setCurrency(c){currency=c;document.getElementById('btn-dkk').classList.toggle('active',c==='DKK');document.getElementById('btn-eur').classList.toggle('active',c==='EUR');renderExpCards();renderCourseCards();updateExp();updateCourse();updateCorp();}
+var experiences = [
+  {name:'Quick Taster', dur:'1.5 hours', minP:1, maxP:6, minPrice:375, perPerson:375, flatGroup:1995},
+  {name:'Half Day', dur:'4 hours', minP:1, maxP:6, minPrice:950, perPerson:950, flatGroup:4950},
+  {name:'Premium Full Day', dur:'7.5 hours', minP:1, maxP:6, minPrice:1695, perPerson:1695, flatGroup:8950}
+];
 
-function renderExpCards(){
-  document.getElementById('exp-cards').innerHTML=experiences.map((e,i)=>`<div class="service-card ${selExp===i?'selected':''}" onclick="selectExp(${i})"><span class="badge">Experience</span><h3>${e.name}</h3><p class="duration">${e.duration}</p><div class="prices"><div class="price-row"><span>Per person</span><span>${fmt(e.perPerson)}</span></div><div class="price-row"><span>Private group</span><span>${fmt(e.flatGroup)}</span></div></div></div>`).join('');
+var courses = [
+  {name:'Intro to Sailing', dur:'½ day', minP:1, maxP:4, minPrice:1250, perPerson:1250, flatGroup:4500},
+  {name:'Intensive Weekend', dur:'2 days', minP:1, maxP:4, minPrice:3900, perPerson:3900, flatGroup:14000},
+  {name:'Seasoned Sailor', dur:'4 days', minP:1, maxP:4, minPrice:5500, perPerson:5500, flatGroup:25000}
+];
+
+var HALF_DAY_GROUP = 4950;
+var selExp = -1;
+var selCrs = -1;
+
+function convert(dkk) {
+  return currency === 'EUR' ? Math.round(dkk / EUR_RATE) : dkk;
 }
-function renderCourseCards(){
-  document.getElementById('course-cards').innerHTML=courses.map((e,i)=>`<div class="service-card ${selCourse===i?'selected':''}" onclick="selectCourse(${i})"><span class="badge green">Course</span><h3>${e.name}</h3><p class="duration">${e.duration}</p><div class="prices"><div class="price-row"><span>Per person</span><span>${fmt(e.perPerson)}</span></div><div class="price-row"><span>Private group</span><span>${fmt(e.flatGroup)}</span></div></div></div>`).join('');
+function fmt(dkk) {
+  var v = convert(dkk);
+  return currency === 'EUR' ? '€' + v.toLocaleString('de-DE') : v.toLocaleString('da-DK') + ' kr';
 }
-function selectExp(i){selExp=i;const e=experiences[i];const pr=document.getElementById('exp-persons');pr.min=e.minP;pr.max=e.maxP;if(+pr.value<e.minP)pr.value=e.minP;if(+pr.value>e.maxP)pr.value=e.maxP;document.getElementById('exp-persons-val').textContent=pr.value;renderExpCards();updateExp();}
-function selectCourse(i){selCourse=i;const e=courses[i];const pr=document.getElementById('crs-persons');pr.min=e.minP;pr.max=e.maxP;if(+pr.value<e.minP)pr.value=e.minP;if(+pr.value>e.maxP)pr.value=e.maxP;document.getElementById('crs-persons-val').textContent=pr.value;renderCourseCards();updateCourse();}
-
-function resultHTML(name,mode,total,currLabel,bd){
-  return `<div class="result-card"><div class="result-top"><div><div class="result-service">${name}</div><div class="result-mode">${mode}</div></div><div class="result-price"><div class="amount">${total}</div><div class="currency">${currLabel}</div></div></div><div class="breakdown">${bd}<div class="breakdown-row total"><span>Total</span><span>${total}</span></div></div></div>`;
+function setCurrency(c) {
+  currency = c;
+  document.getElementById('btn-dkk').classList.toggle('active', c === 'DKK');
+  document.getElementById('btn-eur').classList.toggle('active', c === 'EUR');
+  renderExpCards(); renderCrsCards(); updateExp(); updateCrs(); updateCorp();
 }
 
-function updateExp(){
-  const p=+document.getElementById('exp-persons').value;
-  const days=+document.getElementById('exp-days').value;
-  const grp=document.getElementById('exp-group').checked;
-  document.getElementById('exp-persons-val').textContent=p;
-  document.getElementById('exp-days-val').textContent=days;
-  const r=document.getElementById('exp-result');
-  if(selExp===null){r.innerHTML='<div class="no-selection">Select an experience above to see pricing</div>';return;}
-  const e=experiences[selExp];
-  let subtotal,mode,bd;
-  if(grp){
-    subtotal=e.flatGroup*days;
-    mode=`Private group × ${days} day${days>1?'s':''}`;
-    bd=`<div class="breakdown-row"><span>Private group rate</span><span>${fmt(e.flatGroup)}</span></div><div class="breakdown-row"><span>Days</span><span>${days}</span></div>`;
-  } else {
-    const ppTotal=e.perPerson*p*days;
-    subtotal=Math.max(ppTotal,e.minPrice*days);
-    mode=`${p} person${p>1?'s':''} × ${days} day${days>1?'s':''}`;
-    bd=`<div class="breakdown-row"><span>Per person</span><span>${fmt(e.perPerson)}</span></div><div class="breakdown-row"><span>Persons</span><span>${p}</span></div><div class="breakdown-row"><span>Days</span><span>${days}</span></div>${ppTotal<e.minPrice*days?`<div class="breakdown-row"><span>Min price applied</span><span>${fmt(e.minPrice)} / day</span></div>":''}`;
+function renderExpCards() {
+  var html = '';
+  for (var i = 0; i < experiences.length; i++) {
+    var e = experiences[i];
+    html += '<div class="service-card' + (selExp === i ? ' selected' : '') + '" onclick="selectExp(' + i + ')">';
+    html += '<span class="badge">Experience</span>';
+    html += '<h3>' + e.name + '</h3>';
+    html += '<p class="dur">' + e.dur + '</p>';
+    html += '<div class="prices">';
+    html += '<div class="price-row"><span>Per person</span><span>' + fmt(e.perPerson) + '</span></div>';
+    html += '<div class="price-row"><span>Private group</span><span>' + fmt(e.flatGroup) + '</span></div>';
+    html += '</div></div>';
   }
-  r.innerHTML=resultHTML(e.name,mode,fmt(subtotal),currency==='EUR'?'Euros':'Danish Krone',bd);
+  document.getElementById('exp-cards').innerHTML = html;
 }
 
-function updateCourse(){
-  const p=+document.getElementById('crs-persons').value;
-  const days=+document.getElementById('crs-days').value;
-  const grp=document.getElementById('crs-group').checked;
-  document.getElementById('crs-persons-val').textContent=p;
-  document.getElementById('crs-days-val').textContent=days;
-  const r=document.getElementById('crs-result');
-  if(selCourse===null){r.innerHTML='<div class="no-selection">Select a course above to see pricing</div>';return;}
-  const e=courses[selCourse];
-  let subtotal,mode,bd;
-  if(grp){
-    subtotal=e.flatGroup*days;
-    mode=`Private group × ${days} day${days>1?'s':''}`;
-    bd=`<div class="breakdown-row"><span>Private group rate</span><span>${fmt(e.flatGroup)}</span></div><div class="breakdown-row"><span>Days</span><span>${days}</span></div>`;
-  } else {
-    const ppTotal=e.perPerson*p*days;
-    subtotal=Math.max(ppTotal,e.minPrice*days);
-    mode=`${p} person${p>1?'s':''} × ${days} day${days>1?'s':''}`;
-    bd=`<div class="breakdown-row"><span>Per person</span><span>${fmt(e.perPerson)}</span></div><div class="breakdown-row"><span>Persons</span><span>${p}</span></div><div class="breakdown-row"><span>Days</span><span>${days}</span></div>${ppTotal<e.minPrice*days?`<div class="breakdown-row"><span>Min price applied</span><span>${fmt(e.minPrice)} / day</span></div>":''}`;
+function renderCrsCards() {
+  var html = '';
+  for (var i = 0; i < courses.length; i++) {
+    var e = courses[i];
+    html += '<div class="service-card' + (selCrs === i ? ' selected' : '') + '" onclick="selectCrs(' + i + ')">';
+    html += '<span class="badge green">Course</span>';
+    html += '<h3>' + e.name + '</h3>';
+    html += '<p class="dur">' + e.dur + '</p>';
+    html += '<div class="prices">';
+    html += '<div class="price-row"><span>Per person</span><span>' + fmt(e.perPerson) + '</span></div>';
+    html += '<div class="price-row"><span>Private group</span><span>' + fmt(e.flatGroup) + '</span></div>';
+    html += '</div></div>';
   }
-  r.innerHTML=resultHTML(e.name,mode,fmt(subtotal),currency==='EUR'?'Euros':'Danish Krone',bd);
+  document.getElementById('crs-cards').innerHTML = html;
 }
 
-function updateCorp(){
-  const p=+document.getElementById('corp-persons').value;
-  const days=+document.getElementById('corp-days').value;
-  document.getElementById('corp-persons-val').textContent=p;
-  document.getElementById('corp-days-val').textContent=days;
-  const halfDayGroup=experiences[1].flatGroup;
-  const total=halfDayGroup*days;
-  const bd=`<div class="breakdown-row"><span>Half Day private group rate</span><span>${fmt(halfDayGroup)}</span></div><div class="breakdown-row"><span>Days</span><span>${days}</span></div><div class="breakdown-row"><span>Persons</span><span>${p}</span></div>`;
-  document.getElementById('corp-result').innerHTML=resultHTML('Corporate Team Building',`${p} people · ${days} day${days>1?'s':''}`,fmt(total),currency==='EUR'?'Euros':'Danish Krone',bd);
+function selectExp(i) {
+  selExp = i;
+  var e = experiences[i];
+  var sl = document.getElementById('exp-p');
+  sl.min = e.minP; sl.max = e.maxP;
+  if (+sl.value < e.minP) { sl.value = e.minP; }
+  if (+sl.value > e.maxP) { sl.value = e.maxP; }
+  document.getElementById('exp-p-val').textContent = sl.value;
+  renderExpCards(); updateExp();
 }
 
-function switchTab(t){['experiences','courses','corporate'].forEach(x=>{document.getElementById('tab-'+x).style.display=x===t?'':'none';});document.querySelectorAll('.ss-tab').forEach((b,i)=>{b.classList.toggle('active',['experiences','courses','corporate'][i]===t);});}
-renderExpCards();renderCourseCards();updateExp();updateCourse();updateCorp();
+function selectCrs(i) {
+  selCrs = i;
+  var e = courses[i];
+  var sl = document.getElementById('crs-p');
+  sl.min = e.minP; sl.max = e.maxP;
+  if (+sl.value < e.minP) { sl.value = e.minP; }
+  if (+sl.value > e.maxP) { sl.value = e.maxP; }
+  document.getElementById('crs-p-val').textContent = sl.value;
+  renderCrsCards(); updateCrs();
+}
+
+function resultCard(name, mode, total, breakdown) {
+  var currLabel = currency === 'EUR' ? 'Euros' : 'Danish Krone';
+  return '<div class="result-card"><div class="result-top"><div><div class="result-service">' + name + '</div><div class="result-mode">' + mode + '</div></div><div class="result-price"><div class="amount">' + total + '</div><div class="curr">' + currLabel + '</div></div></div><div class="breakdown">' + breakdown + '<div class="brow total"><span>Total</span><span>' + total + '</span></div></div></div>';
+}
+
+function updateExp() {
+  var p = +document.getElementById('exp-p').value;
+  var d = +document.getElementById('exp-d').value;
+  var grp = document.getElementById('exp-grp').checked;
+  document.getElementById('exp-p-val').textContent = p;
+  document.getElementById('exp-d-val').textContent = d;
+  var r = document.getElementById('exp-result');
+  if (selExp < 0) { r.innerHTML = '<div class="no-sel">Select an experience above to see pricing</div>'; return; }
+  var e = experiences[selExp];
+  var total, mode, bd;
+  if (grp) {
+    total = e.flatGroup * d;
+    mode = 'Private group × ' + d + ' day' + (d > 1 ? 's' : '');
+    bd = '<div class="brow"><span>Private group rate</span><span>' + fmt(e.flatGroup) + '</span></div><div class="brow"><span>Days</span><span>' + d + '</span></div>';
+  } else {
+    var calc = e.perPerson * p * d;
+    var minTotal = e.minPrice * d;
+    total = Math.max(calc, minTotal);
+    mode = p + ' person' + (p > 1 ? 's' : '') + ' × ' + d + ' day' + (d > 1 ? 's' : '');
+    bd = '<div class="brow"><span>Per person</span><span>' + fmt(e.perPerson) + '</span></div><div class="brow"><span>Persons</span><span>' + p + '</span></div><div class="brow"><span>Days</span><span>' + d + '</span></div>';
+    if (calc < minTotal) { bd += '<div class="brow"><span>Min price applied</span><span>' + fmt(e.minPrice) + ' / day</span></div>'; }
+  }
+  r.innerHTML = resultCard(e.name, mode, fmt(total), bd);
+}
+
+function updateCrs() {
+  var p = +document.getElementById('crs-p').value;
+  var d = +document.getElementById('crs-d').value;
+  var grp = document.getElementById('crs-grp').checked;
+  document.getElementById('crs-p-val').textContent = p;
+  document.getElementById('crs-d-val').textContent = d;
+  var r = document.getElementById('crs-result');
+  if (selCrs < 0) { r.innerHTML = '<div class="no-sel">Select a course above to see pricing</div>'; return; }
+  var e = courses[selCrs];
+  var total, mode, bd;
+  if (grp) {
+    total = e.flatGroup * d;
+    mode = 'Private group × ' + d + ' day' + (d > 1 ? 's' : '');
+    bd = '<div class="brow"><span>Private group rate</span><span>' + fmt(e.flatGroup) + '</span></div><div class="brow"><span>Days</span><span>' + d + '</span></div>';
+  } else {
+    var calc = e.perPerson * p * d;
+    var minTotal = e.minPrice * d;
+    total = Math.max(calc, minTotal);
+    mode = p + ' person' + (p > 1 ? 's' : '') + ' × ' + d + ' day' + (d > 1 ? 's' : '');
+    bd = '<div class="brow"><span>Per person</span><span>' + fmt(e.perPerson) + '</span></div><div class="brow"><span>Persons</span><span>' + p + '</span></div><div class="brow"><span>Days</span><span>' + d + '</span></div>';
+    if (calc < minTotal) { bd += '<div class="brow"><span>Min price applied</span><span>' + fmt(e.minPrice) + ' / day</span></div>'; }
+  }
+  r.innerHTML = resultCard(e.name, mode, fmt(total), bd);
+}
+
+function updateCorp() {
+  var p = +document.getElementById('corp-p').value;
+  var d = +document.getElementById('corp-d').value;
+  document.getElementById('corp-p-val').textContent = p;
+  document.getElementById('corp-d-val').textContent = d;
+  var total = HALF_DAY_GROUP * d;
+  var bd = '<div class="brow"><span>Half Day private group rate</span><span>' + fmt(HALF_DAY_GROUP) + '</span></div><div class="brow"><span>Days</span><span>' + d + '</span></div><div class="brow"><span>Persons</span><span>' + p + '</span></div>';
+  document.getElementById('corp-result').innerHTML = resultCard('Corporate Team Building', p + ' people · ' + d + ' day' + (d > 1 ? 's' : ''), fmt(total), bd);
+}
+
+function switchTab(t) {
+  var tabs = ['exp', 'crs', 'corp'];
+  for (var i = 0; i < tabs.length; i++) {
+    document.getElementById('tab-' + tabs[i]).style.display = tabs[i] === t ? '' : 'none';
+  }
+  var btns = document.querySelectorAll('.ss-tab');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('active', i === tabs.indexOf(t));
+  }
+}
+
+renderExpCards();
+renderCrsCards();
+updateExp();
+updateCrs();
+updateCorp();
 </script>
 </body>
 </html>
